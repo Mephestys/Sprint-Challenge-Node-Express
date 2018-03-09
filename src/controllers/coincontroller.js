@@ -10,12 +10,12 @@ router.get('/compare', (req, res) => {
   getValues()
     .then(results => {
       res.status(STATUS_SUCCESS)
-      res.send( {results: results })
+      res.send({ difference: results })
     })
     .catch(err => {
       console.log(err);
       res.status(STATUS_USER_ERROR)
-      res.send( {error: err })
+      res.send({ err })
     });
 })
 
