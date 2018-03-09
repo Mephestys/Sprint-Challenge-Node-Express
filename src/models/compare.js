@@ -8,8 +8,7 @@ const endpoints = [CURRENT_VALUE_ENDPOINT, PREVIOUS_VALUE_ENDPOINT];
 function calculateValues(valuesArray) {
   const currentValue = valuesArray[0].bpi.USD.rate_float;
   const previousValue = Object.values(valuesArray[1].bpi);
-  console.log(currentValue, previousValue[0]);
-  return currentValue - previousValue[0];
+  return (currentValue - previousValue[0]).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 }
 
 function getValues() {
@@ -19,11 +18,13 @@ function getValues() {
         .then(res => res.json())
         .catch(err => {
           console.log(err)
+          reject(err)
         })
     })
     Promise.all(valueArray)
       .then(valueArray => resolve(calculateValues(valueArray)))
       .catch(err => {
+        console.log(err)
         reject(err);
       });
   })
